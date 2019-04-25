@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Edit Book</title>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='bookStoreStyle.css') }}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Edit {{book.name}} Book</h1>
+			</div>
+			<div class="content">
+                <div class="row">
+                    <div class="center roundedsection myform">
+						<form action="{{url_for('editBook', library_id = book.library_id , book_id = book.id) }}" method="post">
+							<p>Name:</p>
+								<input type="text" name="title" value="{{book.title}}" required>
+							<p>Author:</p>
+								<input type="text" name="author" value="{{book.author}}" required>
+							<p>Genre:</p>
+							<select name="genre">
+							{% for g in genres %}
+								{% if book.genre.id == g.id %}
+								<option value="{{g.id}}" selected> {{g.name}}</option>
+								{% else %}
+								<option value="{{g.id}}"> {{g.name}}</option>
+								{% endif %}
+							{% endfor %}
+							</select>
+
+							<p>Description:</p>
+								<input type="text" name="description" value="{{book.description}}">
+							<input type="submit" value="Edit">
+						</form>
+						<a href="{{url_for('showLibraryBooks', library_id = library.id)}}">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

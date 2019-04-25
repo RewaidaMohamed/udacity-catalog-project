@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New BookStore</title>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='bookStoreStyle.css') }}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Add BookStore</h1>
+			</div>
+			<div class="content">
+                <div class="row">
+                    <div class="center roundedsection myform">
+						<form action="{{url_for('addNewLibrary')}}" method="post">
+							<label for="name">Name</label>
+							<input type="text" name="name" required>
+							<input type="submit" value="Add">
+							<a href = "{{url_for('showLibraries') }}"> Cancel </a>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+</html>

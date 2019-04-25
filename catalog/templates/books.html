@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Books</title>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='bookStoreStyle.css') }}">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>{{ library.name }}</h1>
+				<div>
+					{% if current_user_id != 0 %}
+					<a href="{{url_for('disconnect')}}" class="login-section">Sign out</a>
+					{% else %}
+					<a href="{{url_for('showLogin') }}" class="login-section">Login</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="nav-bar">
+				<ul>
+				  <li><a class="active" href="{{url_for('showHomePage')}}">Home</a></li>
+				  <li><a href="{{url_for('showLibraries')}}">BookStores</a></li>
+				</ul>
+			</div>
+			<div class="content">
+                <div class="row">
+                    <div class="center roundedsection">
+                    	{% if current_user_id == library.user_id %}
+						<a href="{{url_for('addNewBook' , library_id = library.id)}}">Add New Book</a>
+						{% endif %}
+
+						<div class = 'flash'>
+							{% with messages = get_flashed_messages() %}
+						      {% if messages %}
+						        <ul>
+						        {% for message in messages %}
+						            <li> <strong> {{ message }} </strong> </li>
+						        {% endfor %}
+						        </ul>
+						        {% endif %}
+						    {% endwith %}
+						</div>
+
+
+						{% for b in books %}
+						<div class="w3-container">
+							<div class="w3-card-4">
+								<header class="w3-container w3-blue">
+									<h1>{{b.title}}</h1> <span>{{b.genre.name}}</span>
+								</header>
+
+								<div class="w3-container">
+									<p>author: {{b.author}}<br/>
+									{{b.description}}
+									</p>
+								</div>
+
+								<footer class="w3-container w3-blue">
+									{% if current_user_id == b.user_id %}
+									<a href="{{url_for('editBook', library_id = b.library_id , book_id = b.id) }}">Edit</a>
+									<a href="{{url_for('deleteBook', library_id = b.library_id , book_id = b.id) }}">Delete</a>
+									{% endif %}
+								</footer>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>				
+	</body>
+</html>

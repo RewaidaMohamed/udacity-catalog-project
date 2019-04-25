@@ -1,0 +1,195 @@
+
+
+h1 {
+	font-family: "Alfa Slab One";
+	font-size: 50px;
+	color: #091D34;
+	line-height: 20px;
+	font-weight: 900;
+}
+
+body {
+  margin: 0;
+  background-color: #F7F2D4;
+}
+
+a {
+	font-size: 14px;
+ 	color: #236AB9;
+ 	line-height: 17px;	
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #236AB9;
+  color: #F7F2D4;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header {
+  background-color: #FDDC22;
+  text-align: center;
+  padding: 20px;
+}
+
+.header a{
+	float:right;
+}
+.row {
+  margin: 10px;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 25%;
+  background-color: #091D34;
+  color: #F7F2D4;
+}
+
+.left a{
+	color:#236AB9;
+	font-size: 20px;
+}
+.right {
+  width: 70%;
+  background-color: #F7F2D4;
+  color: #091D34;
+}
+.right h2{
+	color: #D61A46;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Middle column */
+.center {
+  margin: auto;
+  width: 60%;
+  color: #091D34;
+  padding: 10px;
+}
+
+.center.logincenter {
+  margin: auto;
+  width: 30%;
+  color: #091D34;
+  padding: 10px;
+}
+
+
+.roundedsection{
+	/*margin: 10px;*/
+	border-radius: 25px;
+  border: 2px solid #236AB9;
+  padding: 20px; 
+}
+.roundedsection.myform{
+	border-color: #D61A46;
+}
+
+/* Style the footer */
+.footer {
+  background-color: #33116F;
+  padding: 10px;
+  text-align: right;
+}
+
+.footer a{
+	color: #FDE665;
+}
+
+.w3-container.w3-blue{
+	background-color:#091D34 !important;
+	padding: 10px;
+}
+
+.w3-container.w3-blue h1{
+	color: #236AB9;
+	font-size: 20px;
+	display:inline;
+	font-weight: bold;
+	text-align:left;
+}
+
+.w3-container.w3-blue span{
+	float: right;
+	background-color: #D61A46;
+	color: #F7F2D4;
+	border-radius: 25px;
+  	border: 2px solid #236AB9;
+	padding: 10px;
+	display:inline;
+}
+
+.w3-container.w3-blue a{
+	color: #236AB9;
+}
+
+.w3-container{
+	margin: 10px;
+}
+
+
+.nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #D61A46;
+}
+
+.nav-bar li {
+  float: left;
+}
+
+.nav-bar li a {
+  display: block;
+  color: #EADD8F;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-bar li a:hover {
+  background-color: #091D34;
+}
+
+.flash {
+	background-color: #F4D315;
+	width:100%;
+	text-decoration: none;
+
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+
+}
+.login-btn{
+	margin: 10px;
+	font-size: 16px;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Libraries</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bookStoreStyle.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>BookStores</h1>
+                <div>
+                    {% if current_user_id != 0 %}
+                    <a href="{{url_for('disconnect')}}" class="login-section">Sign out</a>
+                    {% else %}
+                    <a href="{{url_for('showLogin') }}" class="login-section">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="nav-bar">
+                <ul>
+                  <li><a class="active" href="{{url_for('showHomePage')}}">Home</a></li>
+                  <li><a href="{{url_for('showLibraries')}}">BookStores</a></li>
+                </ul>
+            </div>
+
+            <div class="content">
+                
+
+                <div class="row">
+                    <div class="center roundedsection">
+                        <a href="{{url_for('addNewLibrary')}}">Add New BookStore</a>
+
+
+                        <div class = 'flash'>
+                            {% with messages = get_flashed_messages() %}
+                              {% if messages %}
+                                  
+                                <ul>
+                                {% for message in messages %}
+                                    <li> <strong> {{ message }} </strong> </li>
+                                {% endfor %}
+                                </ul>
+                                {% endif %}
+                            {% endwith %}
+
+                        </div>
+                        <ul class='libList'>
+                            {% for lib in libraries %}
+                            <li class='libraryCard'>
+                            	<p>{{lib.name}}</p>
+                            	<a href="{{url_for('showLibraryBooks', library_id = lib.id) }}">View</a>
+                                {% if current_user_id == lib.user_id %}
+                            	<a href="{{url_for('editLibrary', library_id = lib.id) }}">Edit</a>
+                            	<a href="{{url_for('deleteLibrary', library_id = lib.id) }}">Delete</a>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

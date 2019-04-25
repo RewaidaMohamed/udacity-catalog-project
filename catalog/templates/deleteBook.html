@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Delete Book</title>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='bookStoreStyle.css') }}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Delete Book</h1>
+			</div>
+			<div class="content">
+                <div class="row">
+                    <div class="center roundedsection myform">
+						<form action="{{url_for('deleteBook', library_id = book.library_id , book_id = book.id) }}" method = 'post'>
+						<label>Are you sure you want to delete "{{book.title}}"?</label>
+						<input type='submit', value = 'Delete'>
+
+						</form>
+
+						<a href = "{{url_for('showLibraryBooks', library_id = library.id)}}">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
