@@ -34,7 +34,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super_super_secret_key'
 #app.secret_key = 'super_super_secret_key'
 app.config['GOOGLE_OAUTH2_CLIENT_SECRETS_FILE'] = CLIENT_FILE
-oauth2 = UserOAuth2(app)
+#oauth2 = UserOAuth2(app)
 
 engine = create_engine('postgresql://catalog:catalog@localhost/library')
 Base.metadata.bind = engine
@@ -317,7 +317,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets(CLIENT_FILE, scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -331,7 +331,8 @@ def gconnect():
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
            % access_token)
     h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    req = h.request(url, 'GET')[1]
+    result = json.loads(req.decode('utf-8'))
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
