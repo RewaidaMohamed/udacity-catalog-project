@@ -18,13 +18,15 @@ import json
 import requests
 import random
 import string
+import os
 
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 
-
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+CLIENT_FILE = os.path.join(THIS_FOLDER, 'client_secrets.json')
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open(CLIENT_FILE, 'r').read())['web']['client_id']
 APPLICATION_NAME = "Library List App"
 
 app = Flask(__name__)
