@@ -1,43 +1,112 @@
-=====================================================================
-			SUMMARY
-=====================================================================
 
-This project implements a "Bookstores" interface where you can create your own bookstore and add books with different genres using Python framework Flask along with implementing third-party OAuth authentication.
+# Project: Linux Server Configuration
 
-=====================================================================
-			REQUIRMENTS
-=====================================================================
+### IP Address: 18.184.35.98
+### SSH port: 2200
 
-to run this project you will need to install the following:
-- Vagrant
-- VirtualBok
-- Python v3
-- Flask
+### URL to web application: http://18.184.35.98.xip.io/
 
-to run the code:
-- launch the vagrant VM (vagrant up & vargant ssh)
-- change directory to /vagrant
-- place the project in this directory 
-- setup the database by running (python librarydb_setup.py)
-- add test data (python lotsofbooks.py) [this step is optional]
-- the run the project (python application.py)
-- test the application by visiting http://localhost:5000 localy
+## Server Configurations:
+-create linux server instance using Amazon Lightsail
 
-=====================================================================
-			DESCRIPTION
-=====================================================================
+- make sure all system packages up-to-date
+```
+$ sudo apt-get update
+$ sudo apt-get upgrade
+```
 
-In this application, you can:
-- create your own bookstores
-- edit your bookstores
-- or delete them
-you alse can:
-- add books to your bookstore and identify the title, author, description and its Genre
-- edit your books information
-- or delete them
-you can also Sign up to the application using third parties as:
-- Google
-- Facebook
+## Security and Firewall Configrations:
+- create new user grader(genrate public and private Keys) 
+```
+$ sudo adduser grader
+```
 
+- disable root login, from /etc/ssh/sshd_config I edited PermitRootLogin and set it with no.
+```
+PermitRootLogin no
+```
 
+-give sudo access to grader user 
+edit the sudoers file, add line grader ALL=(ALL:ALL) ALL
 
+- change ssh port to 2200
+edit /etc/ssh/sshd_config and change port 22 to 2200 then restart sshd
+
+-Allowing connection only for ssh, http and ntp using ufw commands
+```
+$ sudo ufw default deny incoming
+$ sudo ufw default allow outcoming 
+$ sudo ufw allow 2200
+$ sudo ufw allow www
+$ sudo ufw allow ntp
+$ sudo ufw enable
+$ sudo ufw status
+```
+## Web Application deployment to server:
+
+- install all required packages
+```
+$ sudo apt-get -y install python3 python3-venv
+$ sudo apt-get install python-flask
+```
+- install apache2 and mod-wsgi
+```
+$ sudo apt-get install apache2
+$ sudo apt-get install libapache2-mod-wsgi
+```
+- install git and clone my repo to /var/www/
+
+- change directory to my project file & create a wsgi file named application.wsgi
+
+- add following lines to application.wsgi
+```
+import sys
+sys.path.insert(0, '/var/www/udacity-catalog-project/catalog')
+from application import app as application
+application.secret_key = 'super_super_secret_key'
+```
+## Apache Configrations:
+
+- in /etc/apache2/sites-available, add new file named catalog.conf and add following line secret_key
+```
+<VirtualHost *:80>
+     # Add machine's IP address (use ifconfig command)
+     ServerName 18.184.35.98
+     ServerAdmin eng.rewaida2013@gmail.com
+     # Give an alias to to start your website url with
+     WSGIScriptAlias / /var/www/udacity-catalog-project/catalog/application.wsgi
+     <Directory /var/www/udacity-catalog-project/catalog/>
+            # set permissions as per apache2.conf file
+            Order allow,deny
+            Allow from all
+     </Directory>
+     ErrorLog ${APACHE_LOG_DIR}/error.log
+     LogLevel warn
+     CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+- change the default page with app.
+```
+$ sudo a2dissite 000-default.conf
+$ sudo a2ensite catalog.conf
+$ sudo service apache2 reload
+```
+## Database Setup
+
+- for database server, install PostgreSQL 
+```
+$ sudo apt-get install postgresql
+```
+- create user and new data base, then give the user privileges.
+```
+$ sudo su - postgres
+postgres $ psql
+postgres=# CREATE DATABASE library;
+CREATE USER catalog;
+ALTER ROLE catalog WITH PASSWORD 'catalog'
+GRANT ALL PRIVILEGES ON DATABASE library TO catalog;
+```
+- then changed the line with create_engine in my code to 
+```
+create_engine('postgresql://catalog:catalog@localhost/library')
+```
