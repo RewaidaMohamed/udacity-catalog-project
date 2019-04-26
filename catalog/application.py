@@ -31,7 +31,10 @@ APPLICATION_NAME = "Library List App"
 
 app = Flask(__name__)
 
-app.secret_key = 'super_super_secret_key'
+app.config['SECRET_KEY'] = 'super_super_secret_key'
+#app.secret_key = 'super_super_secret_key'
+app.config['GOOGLE_OAUTH2_CLIENT_SECRETS_FILE'] = CLIENT_FILE
+oauth2 = UserOAuth2(app)
 
 engine = create_engine('postgresql://catalog:catalog@localhost/library')
 Base.metadata.bind = engine
