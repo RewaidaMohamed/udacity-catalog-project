@@ -110,3 +110,7 @@ GRANT ALL PRIVILEGES ON DATABASE library TO catalog;
 ```
 create_engine('postgresql://catalog:catalog@localhost/library')
 ```
+## Acknowledgments
+* [mudspringhiker blog](https://mudspringhiker.github.io/deploying-a-flask-web-app-on-lightsail-aws.html)
+* [mod_wsgi (Apache)](http://flask.pocoo.org/docs/1.0/deploying/mod_wsgi/)
+* [DigitalOcean PostgreSql tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
